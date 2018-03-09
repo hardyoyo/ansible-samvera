@@ -4,7 +4,7 @@
 #
 # Runs the first Capistrano managed deployment
 # Usage:
-#    - { role: first_deploy, project_name: *required* }
+#    - { role: first_deploy, project_name: *required*, project_owner: *required* }
 #
 # Does a minimal install of a codebase from development mode to bootstrap a capistrano deployment
 # The codebase being deployed must be capified and have a config/deploy/localhost.rb stage file
@@ -22,7 +22,7 @@
 
 - name: clone repo
   git:
-      repo: https://github.com/curationexperts/{{ project_name }}.git
+      repo: https://github.com/{{ project_owner }}/{{ project_name }}.git
       dest: /home/{{ ansible_ssh_user }}/{{ project_name }}
 
 - name: install gems (bundle install)
