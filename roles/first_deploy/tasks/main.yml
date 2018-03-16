@@ -25,10 +25,17 @@
       repo: https://github.com/{{ project_owner }}/{{ project_name }}.git
       dest: /home/{{ ansible_ssh_user }}/{{ project_name }}
 
+- name: find our GemFile
+  find:
+      paths: /home/{{ ansible_ssh_user }}/{{ project_name }}
+      patterns: GemFile
+      recurse: yes
+      register: foundGemFile
+
 - name: install gems (bundle install)
   shell: bundle install
   args:
-    chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
+    chdir: {{ foundGemFile.files.path | dirname }}
 
 - name: create deployment keypair for connection user
   # Set up a keypair so the ansible user can connect as the capistrano deploy user
