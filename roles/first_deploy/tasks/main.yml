@@ -35,7 +35,7 @@
 - name: install gems (bundle install)
   shell: bundle install
   args:
-    chdir: {{ foundGemFile.files.path | dirname }}
+    chdir: "{{ foundGemFile.files.path | dirname }}"
 
 - name: create deployment keypair for connection user
   # Set up a keypair so the ansible user can connect as the capistrano deploy user
