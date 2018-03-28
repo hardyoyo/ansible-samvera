@@ -93,8 +93,22 @@
   become: true
   service: name=solr state=restarted
 
+- name: link config files
+  file:
+    src: '/home/{{ ansible_ssh_user }}/{{ project_name }}/config/{{ item.src }}'
+    dest: '/opt/{{ project_name }}/shared/config/{{ item.dest }}'
+    owner: deploy
+    group: deploy
+    state: link
+  with_items:
+    - { src: 'analytics.yml', dest: 'analytics.yml' }
+    - { src: 'blacklight.yml', dest: 'blacklight.yml' }
+    - { src: 'browse_everything_providers.yml', dest: 'browse_everything_providers.yml' }
+    - { src: 'fedora.yml', dest: 'fedora.yml' }
+    - { src: 'solr.yml', dest: 'solr.yml' }
+
 - name: deploy to production directories with capistrano
-  shell: BRANCH={{ branch | default('master') }} cap {{ cap_deployment}} deploy
+  shell: bundle exec cap {{ cap_deployment }} deploy
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
 
