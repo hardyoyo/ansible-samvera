@@ -95,8 +95,8 @@
 
 - name: link config files
   file:
-    src: '/opt/{{ project_name }}/shared/config/{{ item }}'
-    dest: '/home/{{ ansible_ssh_user }}/{{ project_name }}/config/{{ item }}'
+    src: '/home/{{ ansible_ssh_user }}/{{ project_name }}/config/{{ item }}'
+    dest: '/opt/{{ project_name }}/shared/config/{{ item }}'
     owner: deploy
     group: deploy
     state: link
