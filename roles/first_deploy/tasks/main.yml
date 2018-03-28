@@ -38,7 +38,7 @@
   git:
       repo: https://github.com/{{ project_owner }}/{{ project_name }}.git
       dest: /home/{{ ansible_ssh_user }}/{{ project_name }}
-      branch: "{{ project_version }}"
+      version: "{{ project_version }}"
 
 - name: checkout branch
   shell: git checkout {{ branch | default('master') }}
