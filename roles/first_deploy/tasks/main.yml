@@ -111,7 +111,7 @@
   become: yes
 
 - name: deploy to production directories with capistrano
-  shell: cap {{ cap_deployment }} deploy
+  shell: cap -p --trace=stdout {{ cap_deployment }} deploy
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
 
