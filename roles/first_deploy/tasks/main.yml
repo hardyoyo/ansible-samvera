@@ -97,9 +97,10 @@
   file:
     src: '/home/{{ ansible_ssh_user }}/{{ project_name }}/config/{{ item }}'
     dest: '/opt/{{ project_name }}/shared/config/{{ item }}'
+    remote_src: yes
     owner: deploy
     group: deploy
-    state: link
+    mode: 0644
   with_items:
     - 'analytics.yml'
     - 'blacklight.yml'
