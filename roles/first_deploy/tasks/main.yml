@@ -107,6 +107,7 @@
     - 'browse_everything_providers.yml'
     - 'fedora.yml'
     - 'solr.yml'
+  become: yes
 
 - name: deploy to production directories with capistrano
   shell: bundle exec cap {{ cap_deployment }} deploy
