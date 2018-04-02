@@ -134,9 +134,9 @@
   become: yes
   service: name=apache2 state=restarted
 
-- name: ensure default admin set with rake
-  become: yes
-  become_user: deploy
-  shell: RAILS_ENV=production bundle exec rake hyrax:default_admin_set:create
-  args:
-    chdir: /opt/{{ project_name }}/current
+#- name: ensure default admin set with rake
+#  become: yes
+#  become_user: deploy
+#  shell: RAILS_ENV=production bundle exec rake hyrax:default_admin_set:create
+#  args:
+#    chdir: /opt/{{ project_name }}/current
