@@ -12,4 +12,4 @@
   timezone:
     name: "{{ timezone | default('America/New_York') }}"
   tags:
-    - docker_skips
+    - skippable

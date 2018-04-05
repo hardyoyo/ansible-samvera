@@ -12,7 +12,7 @@
   become: yes
   hostname: name={{ hostname }}
   tags:
-    - docker_skips
+    - skippable
 
 - name: Edit /etc/hosts
   become: yes
@@ -21,4 +21,4 @@
     state: present
     line: 127.0.0.1 {{ hostname }} {{ [hostname, domain] | join('.') }}
   tags:
-    - docker_skips
+    - skippable
