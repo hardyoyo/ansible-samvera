@@ -18,3 +18,5 @@
     dest: /etc/hosts
     state: present
     line: 127.0.0.1 {{ hostname }} {{ [hostname, domain] | join('.') }}
+  tags:
+    - docker_skips
