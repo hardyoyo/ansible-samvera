@@ -11,6 +11,8 @@
 - name: Set hostname
   become: yes
   hostname: name={{ hostname }}
+  tags:
+    - docker_skips
 
 - name: Edit /etc/hosts
   become: yes
