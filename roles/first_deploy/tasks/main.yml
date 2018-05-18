@@ -117,6 +117,8 @@
   environment:
     PROJECT_OWNER: "{{ project_owner }}"
     PROJECT_NAME: "{{ project_name }}"
+  become: yes
+  become_user: deploy
 
 - name: symlink schema from code to solr
   become: yes
