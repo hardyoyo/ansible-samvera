@@ -45,6 +45,12 @@
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
 
+- name: set the ownership of the log folder so that the deploy user can write to it
+- file:
+    path: /home/{{ ansible_ssh_user }}/{{ project_name }}/log
+    owner: deploy
+    group: deploy
+
 - name: install gems (bundle install)
   shell: bundle install
   args:

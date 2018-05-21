@@ -19,6 +19,11 @@
   become: yes
   group: name=deploy state=present
 
+- name: Adding existing ansible_user_id to the deploy group
+  user: name={{ ansible_user_id }}
+        groups=deploy
+        append=yes
+
 - name: create cap user
   become: yes
   user: name=deploy group=deploy shell=/bin/bash createhome=yes state=present
