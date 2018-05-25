@@ -45,10 +45,13 @@
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
 
-- name: set the ownership of the log folder so that the deploy user can write to it
+- name: set the ownership of these folders so that the deploy user can write to them
   become: yes
+  with_items:
+      - log
+      - tmp
   file:
-    path: /home/{{ ansible_ssh_user }}/{{ project_name }}/log
+    path: /home/{{ ansible_ssh_user }}/{{ project_name }}/{{ item }}
     owner: deploy
     group: deploy
 
