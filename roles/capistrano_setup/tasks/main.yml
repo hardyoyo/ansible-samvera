@@ -41,6 +41,7 @@
     - /opt/derivatives
     - /opt/uploads
     - /home/deploy/.ssh
+    - /home/deploy/tmp
 
 - name: add keys for capistrano user
   become: yes
