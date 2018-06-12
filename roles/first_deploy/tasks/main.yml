@@ -62,10 +62,23 @@
 
 - name: create keypair for the deploy user
   # Set up a keypair so the deploy user can connect as the capistrano deploy user (I know it's weird, go with it)
+  become: yes
   user:
       name: deploy
       generate_ssh_key: yes
       ssh_key_file: .ssh/id_rsa
+
+- name: read DEPLOY public key
+  slurp:
+      src: /home/deploy/.ssh/id_rsa.pub
+  register: deploy_public_key
+
+- name: add DEPLOY public key to deploy user
+  become: yes
+  authorized_key:
+      user: deploy
+      key: "{{ deploy_public_key.content | b64decode }}"
+
 
 - name: create deployment keypair for connection user
   # Set up a keypair so the ansible user can connect as the capistrano deploy user
@@ -74,12 +87,12 @@
       generate_ssh_key: yes
       ssh_key_file: .ssh/id_rsa
 
-- name: read public key
+- name: read public key for connection user
   slurp:
       src: /home/{{ ansible_ssh_user }}/.ssh/id_rsa.pub
   register: public_key
 
-- name: add public key to deploy user
+- name: add public key from connection user to deploy user
   become: yes
   authorized_key:
       user: deploy
