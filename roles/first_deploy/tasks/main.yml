@@ -60,23 +60,19 @@
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
 
+- name: create keypair for the deploy user
+  # Set up a keypair so the deploy user can connect as the capistrano deploy user (I know it's weird, go with it)
+  user:
+      name: deploy
+      generate_ssh_key: yes
+      ssh_key_file: .ssh/id_rsa
+
 - name: create deployment keypair for connection user
   # Set up a keypair so the ansible user can connect as the capistrano deploy user
   user:
       name: "{{ ansible_ssh_user }}"
       generate_ssh_key: yes
       ssh_key_file: .ssh/id_rsa
-
-# copy the private key to the deploy user, because it needs it to ssh to itself
-# ... because that's the way Capistrano likes it
-- name: copy private key file to the deploy user
-  copy:
-    src: /home/{{ ansible_ssh_user }}/.ssh/id_rsa
-    dest: /home/deploy/.ssh/id_rsa
-    owner: deploy
-    group: deploy
-    mode: 0600
-
 
 - name: read public key
   slurp:
