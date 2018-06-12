@@ -88,6 +88,7 @@
       ssh_key_file: .ssh/id_rsa
 
 - name: read public key for connection user
+  become: yes
   slurp:
       src: /home/{{ ansible_ssh_user }}/.ssh/id_rsa.pub
   register: public_key
