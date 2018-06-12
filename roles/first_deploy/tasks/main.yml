@@ -141,6 +141,16 @@
     - 'solr.yml'
   become: yes
 
+- name: ensure the shared assets folder exists
+  file:
+    path: /opt/{{ project_name }}/shared/public/assets
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: 0775
+    recurse: yes
+
+
 - name: ensure manifest.json file exists
   copy:
     content: ""
