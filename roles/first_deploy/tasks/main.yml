@@ -71,7 +71,7 @@
 # ... because that's the way Capistrano likes it
 - name: copy private key file to the deploy user
   copy:
-    src: .ssh/id_rsa
+    src: /home/{{ ansible_ssh_user }}/.ssh/id_rsa
     dest: /home/deploy/.ssh/id_rsa
     owner: deploy
     group: deploy
