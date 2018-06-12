@@ -149,6 +149,7 @@
     group: deploy
     mode: 0775
     recurse: yes
+    become: yes
 
 
 - name: ensure manifest.json file exists
