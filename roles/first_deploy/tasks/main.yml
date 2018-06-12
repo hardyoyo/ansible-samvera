@@ -141,6 +141,15 @@
     - 'solr.yml'
   become: yes
 
+- name: ensure manifest.json file exists
+  copy:
+    content: ""
+    dest: /opt/{{ project_name }}/shared/public/assets/manifest.json
+    force: no
+    group: deploy
+    owner: deploy
+    mode: 0644
+
 - name: deploy to production directories with capistrano
   shell: cap -p --trace=stdout {{ cap_deployment }} deploy
   args:
