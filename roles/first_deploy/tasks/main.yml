@@ -143,14 +143,16 @@
 
 - name: ensure the shared assets folder exists
   file:
-    path: /opt/{{ project_name }}/shared/public/assets
+    path: {{ item }}
     state: directory
     owner: deploy
     group: deploy
     mode: 0775
-    recurse: yes
-    become: yes
-
+  with_items:
+    - "/opt/{{ project_name }}"
+    - "/opt/{{ project_name }}/shared"
+    - "/opt/{{ project_name }}/shared/public"
+    - "/opt/{{ project_name }}/shared/public/assets"
 
 - name: ensure manifest.json file exists
   copy:
