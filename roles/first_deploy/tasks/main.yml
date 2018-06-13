@@ -159,9 +159,10 @@
     content: ""
     dest: /opt/{{ project_name }}/shared/public/assets/manifest.json
     force: no
-    group: deploy
     owner: deploy
-    mode: 0644
+    group: deploy
+    mode: 0664
+    become: yes
 
 - name: deploy to production directories with capistrano
   shell: cap -p --trace=stdout {{ cap_deployment }} deploy
