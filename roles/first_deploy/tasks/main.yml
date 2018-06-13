@@ -147,7 +147,7 @@
     state: directory
     owner: deploy
     group: deploy
-    mode: 0775
+    mode: 0755
   with_items:
     - "/opt/{{ project_name }}"
     - "/opt/{{ project_name }}/shared"
