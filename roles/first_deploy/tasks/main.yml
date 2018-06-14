@@ -141,6 +141,16 @@
     - 'solr.yml'
   become: yes
 
+- name: run cap deploy setup to get things going correctly
+  shell: cap deploy:setup
+  args:
+    chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
+  environment:
+    PROJECT_OWNER: "{{ project_owner }}"
+    PROJECT_NAME: "{{ project_name }}"
+  become: yes
+  become_user: deploy
+
 - name: deploy to production directories with capistrano
   shell: cap -p --trace=stdout {{ cap_deployment }} deploy
   args:
@@ -150,7 +160,6 @@
     PROJECT_NAME: "{{ project_name }}"
   become: yes
   become_user: deploy
-  retries: 2
 
 - name: symlink schema from code to solr
   become: yes
