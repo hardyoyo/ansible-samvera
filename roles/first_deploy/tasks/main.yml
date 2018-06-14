@@ -141,8 +141,8 @@
     - 'solr.yml'
   become: yes
 
-- name: run cap deploy setup to get things going correctly
-  shell: cap {{ cap_deployment }} deploy:setup 
+- name: run cap deploy check to get things going correctly
+  shell: cap {{ cap_deployment }} deploy:check 
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
   environment:
