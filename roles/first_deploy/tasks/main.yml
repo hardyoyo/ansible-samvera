@@ -141,29 +141,6 @@
     - 'solr.yml'
   become: yes
 
-- name: ensure the shared assets folder exists
-  file:
-    path: '{{ item }}'
-    state: directory
-    owner: deploy
-    group: deploy
-    mode: 0755
-  with_items:
-    - "/opt/{{ project_name }}/shared/public/assets"
-    - "/opt/{{ project_name }}/current/public/assets"
-
-- name: ensure manifest.json file exists where Capistrano wants to find it
-  become: yes
-  become_user: deploy
-  shell: touch manifest.json
-  creates: '{{ item }}/manifest.json'
-  args:
-    chdir: '{{ item }}'
-  with_items:
-    #opt/kickme/current/public/assets
-    - "/opt/{{ project_name }}/shared/public/assets"
-    - "/opt/{{ project_name }}/current/public/assets"
-
 - name: deploy to production directories with capistrano
   shell: cap -p --trace=stdout {{ cap_deployment }} deploy
   args:
