@@ -153,13 +153,20 @@
     - "/opt/{{ project_name }}/shared"
     - "/opt/{{ project_name }}/shared/public"
     - "/opt/{{ project_name }}/shared/public/assets"
+    - "/opt/{{ project_name }}/current"
+    - "/opt/{{ project_name }}/current/public"
+    - "/opt/{{ project_name }}/current/public/assets"
 
-- name: ensure manifest.json file exists
+- name: ensure manifest.json file exists where Capistrano wants to find it
   become: yes
   become_user: deploy
   shell: touch manifest.json
+  creates: '{{ item }}/manifest.json'
   args:
-    chdir: /opt/{{ project_name }}/shared/public/assets
+    chdir: '{{ item }}'
+  with_items:
+    - "/opt/{{ project_name }}/shared/public/assets"
+    - "/opt/{{ project_name }}/current/public/assets"
 
 - name: deploy to production directories with capistrano
   shell: cap -p --trace=stdout {{ cap_deployment }} deploy
