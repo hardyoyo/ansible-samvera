@@ -149,12 +149,7 @@
     group: deploy
     mode: 0755
   with_items:
-    - "/opt/{{ project_name }}"
-    - "/opt/{{ project_name }}/shared"
-    - "/opt/{{ project_name }}/shared/public"
     - "/opt/{{ project_name }}/shared/public/assets"
-    - "/opt/{{ project_name }}/current"
-    - "/opt/{{ project_name }}/current/public"
     - "/opt/{{ project_name }}/current/public/assets"
 
 - name: ensure manifest.json file exists where Capistrano wants to find it
@@ -165,6 +160,7 @@
   args:
     chdir: '{{ item }}'
   with_items:
+    #opt/kickme/current/public/assets
     - "/opt/{{ project_name }}/shared/public/assets"
     - "/opt/{{ project_name }}/current/public/assets"
 
