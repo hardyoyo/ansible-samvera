@@ -150,6 +150,7 @@
     PROJECT_NAME: "{{ project_name }}"
   become: yes
   become_user: deploy
+  retries: 2
 
 - name: symlink schema from code to solr
   become: yes
