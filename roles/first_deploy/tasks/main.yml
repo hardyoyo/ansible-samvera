@@ -141,6 +141,14 @@
     - 'solr.yml'
   become: yes
 
+- name: create a directoriey Cap wants to see
+  file:
+    path: /opt/{{ project_name }}/current
+    state: directory
+    owner: deploy
+    group: deploy
+    mode: 0755
+
 - name: run cap deploy check to get things going correctly
   shell: cap {{ cap_deployment }} deploy:check
   args:
