@@ -142,7 +142,7 @@
   become: yes
 
 - name: run cap deploy setup to get things going correctly
-  shell: cap deploy:setup
+  shell: cap deploy:setup {{ cap_deployment }}
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
   environment:
