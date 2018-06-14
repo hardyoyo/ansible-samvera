@@ -147,19 +147,18 @@
     chdir: /opt/{{ project_name }}
   become: yes
   become_user: deploy
+  warn: false
+
+- name: touch a manifest file because Cap wants to see it, too
+  shell: touch manifest.json
+  args:
+    chdir: /opt/{{ project_name }}/current
+  become: yes
+  become_user: deploy
+  warn: false
 
 - name: run cap deploy check to get things going correctly
   shell: cap {{ cap_deployment }} deploy:check
-  args:
-    chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
-  environment:
-    PROJECT_OWNER: "{{ project_owner }}"
-    PROJECT_NAME: "{{ project_name }}"
-  become: yes
-  become_user: deploy
-
-- name: and compile our assets because Capistrano freaks out without this
-  shell: cap {{ cap_deployment }} deploy:compile_assets
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
   environment:
