@@ -155,13 +155,11 @@
     - "/opt/{{ project_name }}/shared/public/assets"
 
 - name: ensure manifest.json file exists
-  copy:
-    content: ""
-    dest: /opt/{{ project_name }}/shared/public/assets/manifest.json
-    force: yes
-    owner: deploy
-    group: deploy
-    mode: 0664
+  become: yes
+  become_user: deploy
+  shell: touch manifest.json
+  args:
+    chdir: /opt/{{ project_name }}/shared/public/assets
 
 - name: deploy to production directories with capistrano
   shell: cap -p --trace=stdout {{ cap_deployment }} deploy
