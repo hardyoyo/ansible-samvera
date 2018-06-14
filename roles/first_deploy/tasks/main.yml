@@ -142,7 +142,7 @@
   become: yes
 
 - name: run cap deploy check to get things going correctly
-  shell: cap {{ cap_deployment }} deploy:check 
+  shell: cap {{ cap_deployment }} deploy:check
   args:
     chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
   environment:
@@ -160,6 +160,7 @@
     PROJECT_NAME: "{{ project_name }}"
   become: yes
   become_user: deploy
+  retries: 2
 
 - name: symlink schema from code to solr
   become: yes
