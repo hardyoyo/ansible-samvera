@@ -159,12 +159,12 @@
 
 - name: run cap deploy check to get things going correctly
   shell: cap {{ cap_deployment }} deploy:check
-  # args:
-  #   chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
+  args:
+    chdir: /home/{{ ansible_ssh_user }}/{{ project_name }}
   # environment:
   #   PROJECT_OWNER: "{{ project_owner }}"
   #   PROJECT_NAME: "{{ project_name }}"
-  # become: yes
+  # # become: yes
   # become_user: deploy
 
 - name: deploy to production directories with capistrano
