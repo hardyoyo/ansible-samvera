@@ -164,8 +164,8 @@
   # environment:
   #   PROJECT_OWNER: "{{ project_owner }}"
   #   PROJECT_NAME: "{{ project_name }}"
-  # # become: yes
-  # become_user: deploy
+  become: yes
+  become_user: deploy
 
 - name: deploy to production directories with capistrano
   shell: cap -p --trace=stdout {{ cap_deployment }} deploy
