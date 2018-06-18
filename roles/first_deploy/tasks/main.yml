@@ -141,22 +141,30 @@
     - 'solr.yml'
   become: yes
 
+# current can't be a *real* directory, it needs to be a symlink, so let's
+# try making this path under /home/deploy/tmp/current/public/assets,
+# then symlink /opt/kickme/current to /home/deploy/tmp/current
+
 - name: create a directory Cap wants to see
   shell: mkdir -p current/public/assets
   args:
-    chdir: /opt/{{ project_name }}
+    chdir: /home/deploy/tmp
   become: yes
   become_user: deploy
   warn: false
 
+- name: symlink the /opt/kickme/current path to our tmp path we just created
+  become: yes
+  file: src=/home/deploy/tmp/current dest=/opt/{{ project_name }}/current state=link force=yes
+
 - name: touch a manifest file because Cap wants to see it, too
   shell: touch manifest.json
   args:
-    chdir: /opt/{{ project_name }}/current/public/assets
+    chdir: /home/deploy/tmp/current/public/assets
   become: yes
   become_user: deploy
   warn: false
-  creates: /opt/{{ project_name }}/current/public/assets/manifest.json
+  creates: /home/deploy/tmp/current/public/assets/manifest.json
 
 - name: run cap deploy check to get things going correctly
   shell: cap {{ cap_deployment }} deploy:check
