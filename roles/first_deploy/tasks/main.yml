@@ -34,6 +34,10 @@
     path: /home/{{ ansible_ssh_user }}/{{ project_name }}
     state: absent
 
+- name: add a required dotenv file for production secrets
+  become: yes
+  template: src=dotenv-production.j2 dest=/opt/{{ project_name }}/shared/.env.production owner=deploy group=deploy backup=yes
+
 - name: clone repo
   git:
       repo: https://github.com/{{ project_owner }}/{{ project_name }}.git
